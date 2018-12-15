@@ -1,19 +1,26 @@
 {
   "name": "electron-project",
+  "author": "Nicholas Gilreath",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "main": "public/electron.js",
   "dependencies": {
+    "electron-is-dev": "^1.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
   },
-  "main": "src/electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack-win": "build --win",
+    "electron-pack-mac": "build --mac",
+    "electron-pack-linux": "build --linux",
+    "preelectron-pack": "yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -25,6 +32,28 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "electron": "^3.0.11"
+    "concurrently": "^4.1.0",
+    "electron": "^3.0.12",
+    "electron-builder": "^20.38.3",
+    "wait-on": "^3.2.0"
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "icon": "assets/win/icon.ico"
+    },
+    "mac": {
+      "icon": "assets/mac/icon.icns"
+    },
+    "linux": {
+      "icon": "assets/linux/32x32.png"
+    }
   }
 }
