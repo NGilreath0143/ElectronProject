@@ -5,7 +5,6 @@ import VideoPlayer from './VideoPlayer'
 
 export default class App extends Component {
   renderVideoPlayer(source, videoId, width, height) {
-    console.log(Constants.VideoSources.YouTube);
     return <VideoPlayer source={source} videoId={videoId} width={width} height={height}/>;
   }
 
