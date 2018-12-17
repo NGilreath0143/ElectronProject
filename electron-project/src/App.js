@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Video from './Video'
+import Constants from './Constants'
+import VideoPlayer from './VideoPlayer'
 
-class App extends Component {
-  renderVideo(src) {
-    return <Video src={src}/>;
+export default class App extends Component {
+  renderVideoPlayer(source, videoId, width, height) {
+    console.log(Constants.VideoSources.YouTube);
+    return <VideoPlayer source={source} videoId={videoId} width={width} height={height}/>;
   }
-  
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {this.renderVideo("https://www.youtube.com/embed/YE7VzlLtp-4")}
+          {this.videoPlayer = this.renderVideoPlayer(Constants.VideoSources.YouTube, "YE7VzlLtp-4", 784, 441)}
         </header>
       </div>
     );
   }
 }
-
-export default App;
