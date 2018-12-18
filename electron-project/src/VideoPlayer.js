@@ -4,6 +4,7 @@ import YouTube from './YouTube'
 
 export default class VideoPlayer extends Component {
   loadVideo(source, videoId, width, height) {
+    
     switch(source) {
       case Constants.VideoSources.YouTube:
         return <YouTube videoId={videoId} width={width} height={height}/>;
@@ -19,8 +20,11 @@ export default class VideoPlayer extends Component {
   }
 
   render() {
+    this.width = this.props.width || Constants.DefaultVideoPlayerSize.Width;
+    this.height = this.props.height || Constants.DefaultVideoPlayerSize.Height;
+    
     return (
-      <div id="player">
+      <div id="player" style={{background:"black",height:this.height, width:this.width}}>
         {this.loadVideo(this.props.source, this.props.videoId, this.props.width, this.props.height)}
       </div>
     );
