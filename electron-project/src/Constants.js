@@ -3,8 +3,14 @@ export default class Constants {
 		YouTube: 0,
 		Vimeo: 1
 	}
-	static DefaultVideoPlayerSize = {
-		Width: 560,
-		Height: 315
+	static YouTube = {
+		 PlayerStates: {
+		  Unstarted: -1,
+		  Ended: 0,
+		  Playing: 1,
+		  Paused: 2,
+		  Buffering: 3,
+		  VideoCued: 5
+		}
 	}
 }

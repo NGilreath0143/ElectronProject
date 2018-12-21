@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
+import Constants from './Constants'
+
+const PlayerStates = Constants.YouTube.PlayerStates;
 
 let that;
 let youtubeAPI;
-
-const PlayerStates = {
-  Unstarted: -1,
-  Ended: 0,
-  Playing: 1,
-  Paused: 2,
-  Buffering: 3,
-  VideoCued: 5
-}
 
 export default class YouTube extends Component {
   checkPageFocus() {
@@ -30,6 +24,7 @@ export default class YouTube extends Component {
     var youtubeComponent = document.getElementById('youtubeComponent');
     youtubeComponent.style.visibility = "hidden";
   }
+  
   isVideoHidden() {
     var youtubeComponent = document.getElementById('youtubeComponent');
 
