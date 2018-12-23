@@ -1,0 +1,17 @@
+{
+  "name": "electron-project-server",
+  "author": "Nicholas Gilreath",
+  "version": "0.1.0",
+  "description": "Server for electron-project functionality outside of the application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NGilreath0143/ElectronProject.git"
+  },
+  "license": "MIT",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "nodemailer": "^4.7.0"
+  }
+}

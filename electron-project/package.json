@@ -4,7 +4,13 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NGilreath0143/ElectronProject.git"
+  },
+  "license": "MIT",
   "main": "public/electron.js",
+  "proxy": "http://localhost:2900/",
   "dependencies": {
     "electron-is-dev": "^1.0.1",
     "react": "^16.6.3",
@@ -16,11 +22,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "server": "cd ../server && node app.js",
+    "electron": "electron .",
     "electron-pack-win": "build --win",
     "electron-pack-mac": "build --mac",
     "electron-pack-linux": "build --linux",
-    "preelectron-pack": "yarn build"
+    "preelectron-pack": "yarn build",
+    "dev": "nf start -p 2900"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,6 +43,7 @@
     "concurrently": "^4.1.0",
     "electron": "^3.0.12",
     "electron-builder": "^20.38.3",
+    "foreman": "^3.0.1",
     "wait-on": "^3.2.0"
   },
   "build": {
