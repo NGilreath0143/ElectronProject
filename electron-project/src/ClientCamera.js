@@ -25,10 +25,6 @@ export default class ClientCamera extends Component {
     })
   }
 
-  componentDidMount() {
-    this.turnCameraOn();
-  }
-
   takeSnapshot() {
     var video = document.getElementById('camera-stream');
     var width = video.videoWidth;
