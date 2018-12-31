@@ -1,41 +1,49 @@
 import React, { Component } from 'react';
-import ClientCamera from './ClientCamera'
 import Constants from './Constants'
 import Config from './Config'
+import VideoMonitor from './VideoMonitor'
 import YouTube from './YouTube'
 
-let that;
+const Statuses = Constants.VideoMonitor.Statuses;
 
 export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
+    this.handler = this.handler.bind(this);
     this.video = React.createRef();
-    this.clientCamera = React.createRef();
+    this.videoMonitor = React.createRef();
   }
 
-  componentDidMount () {
-    that = this;
-    
-    this.clientCamera.current.turnCameraOn();
-    setInterval(this.checkPageFocus, 300);
-  }
+  handler() {
+    var status = this.videoMonitor.current.getCurrentStatus();
 
-  checkPageFocus() {
-    if (!document.hasFocus()) {
-      if(that.video.current.isPlaying()) {
-        that.video.current.disableVideo();
-      } 
-      else if (that.video.current.isVideoHidden()) {
-        that.promptUserAttentionCheck();
-      }
-    } 
+    switch(status) {
+      case Statuses.Initial:
+        break;
+
+      case Statuses.PageUnfocused:
+        if(this.video.current.isPlaying()) {
+          this.video.current.disableVideo();
+        } 
+        else if (this.video.current.isVideoHidden()) {
+          this.promptUserAttentionCheck();
+        }
+        break;
+
+      case Statuses.ScreenshotAttempted:
+        this.video.current.disableVideo();
+        break;
+
+      default:
+        window.alert("Invalid Video Monitor Status:", status);
+    }
   }
 
   promptUserAttentionCheck(){
     if (window.confirm("Are you still watching? If so, please don't leave the app. ('Cancel' will reload the page)")) {
       var youtubeComponent = document.getElementById('youtubeComponent');
       youtubeComponent.style.visibility = "initial";
-      that.video.current.playVideo();
+      this.video.current.playVideo();
     } else {
       window.location.reload();
     }
@@ -64,7 +72,7 @@ export default class VideoPlayer extends Component {
     return (
       <div id="player" style={{background:"black",height:this.height, width:this.width}}>
         {this.loadVideo(this.props.source, this.props.videoId, this.props.width, this.props.height)}
-        <ClientCamera ref={this.clientCamera} />
+        <VideoMonitor ref={this.videoMonitor} updateVideoPlayer={this.handler}/>
       </div>
     );
   }

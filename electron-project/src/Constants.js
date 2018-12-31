@@ -13,4 +13,11 @@ export default class Constants {
 			VideoCued: 5
 		}
 	}
+	static VideoMonitor = {
+		Statuses: {
+			Initial: 0,
+			PageUnfocused: 1,
+			ScreenshotAttempted: 2
+		}
+	}
 }

@@ -74,7 +74,6 @@ export default class ClientCamera extends Component {
       <div className="camera">
         <video id="camera-stream" style={{display: "none"}} autoPlay></video>
         <canvas style={{display: "none"}} id="canvas"></canvas>
-        <button onClick={this.takeSnapshot.bind(this)}>Take a picture</button>
       </div>
     );
   }

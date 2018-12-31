@@ -3,10 +3,29 @@ import Constants from './Constants'
 
 const PlayerStates = Constants.YouTube.PlayerStates;
 
-let that;
 let youtubeAPI;
 
 export default class YouTube extends Component {
+  connectToYouTube() {
+    if (!youtubeAPI) {
+      youtubeAPI = new Promise((resolve) => {
+        const tag = document.createElement('script')
+        tag.src = 'https://www.youtube.com/iframe_api'
+        const firstScriptTag = document.getElementsByTagName('script')[0]
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+        window.onYouTubeIframeAPIReady = () => resolve(window.YT)
+      })
+    }
+    youtubeAPI.then((YT) => {
+      this.player = new YT.Player(this.youtubePlayerAnchor, {
+        width: this.props.width,
+        height: this.props.height,
+        videoId: this.props.videoId,
+        playerVars: {rel: 0}
+      });
+    });
+  }
+
   hideVideo() {
     document.getElementById('youtubeComponent').style.visibility = "hidden";
   }
@@ -34,25 +53,7 @@ export default class YouTube extends Component {
 
 
   componentDidMount () {
-    that = this;
-
-    if (!youtubeAPI) {
-      youtubeAPI = new Promise((resolve) => {
-        const tag = document.createElement('script')
-        tag.src = 'https://www.youtube.com/iframe_api'
-        const firstScriptTag = document.getElementsByTagName('script')[0]
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-        window.onYouTubeIframeAPIReady = () => resolve(window.YT)
-      })
-    }
-    youtubeAPI.then((YT) => {
-      this.player = new YT.Player(this.youtubePlayerAnchor, {
-        width: this.props.width,
-        height: this.props.height,
-        videoId: this.props.videoId,
-        playerVars: {rel: 0}
-      });
-    });
+    this.connectToYouTube();
   }
 
   render () {
