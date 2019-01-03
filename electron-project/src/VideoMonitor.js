@@ -3,6 +3,7 @@ import ClientCamera from './ClientCamera'
 import Constants from './Constants'
 
 const Statuses = Constants.VideoMonitor.Statuses;
+const KeyCodes = Constants.Keyboard.KeyCodes;
 
 let that;
 let globalShortcut;
@@ -47,17 +48,24 @@ export default class VideoMonitor extends Component {
     }
   }
 
+  screenshotProtocol() {
+    this.updateStatus(Statuses.ScreenshotAttempted);
+    this.clientCamera.current.takeSnapshot();
+  }
+
   registerGlobalShortcut() {
     if (globalShortcut) {
       globalShortcut.unregisterAll();
-      const ret = globalShortcut.register('PrintScreen', () => {
-        this.updateStatus(Statuses.ScreenshotAttempted);
-        this.clientCamera.current.takeSnapshot();
+      const ret = globalShortcut.register('Super+PrintScreen', () => {
+        this.screenshotProtocol();
       });
+    }
+  }
 
-      if (!ret) {
-        window.alert("FAILED TO REGISTER")
-      }
+  onKeyUp(e) {
+    var eventObj = window.event ? window.event : e;
+    if (eventObj.metaKey && eventObj.keyCode == KeyCodes.PrintScreen) {
+      that.screenshotProtocol();
     }
   }
 
@@ -67,6 +75,7 @@ export default class VideoMonitor extends Component {
     this.clientCamera.current.turnCameraOn();
     this.registerGlobalShortcut();
 
+    document.onkeyup = this.onKeyUp;
     setInterval(this.checkPageFocus, 300);
   }
 

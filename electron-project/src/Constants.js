@@ -20,4 +20,10 @@ export default class Constants {
 			ScreenshotAttempted: 2
 		}
 	}
+	static Keyboard = {
+		KeyCodes: {
+			Enter: 13,
+			PrintScreen: 44
+		}
+	}
 }
